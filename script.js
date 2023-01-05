@@ -6,43 +6,43 @@ var timerInterval;
 
 var questionList =  [
     {
-        question: 'What color are bananas?',
-        answer: 'Yellow',
+        question: 'Commonly used data types DO not include?',
+        answer: 'Alerts',
         options: [
-            'Blue',
-            'Green',
-            'Yellow',
-            'Purple'
+            'Strings',
+            'Alerts',
+            'Booleans',
+            'Numbers'
         ]
     },
     {
-        question: 'What state is water?',
-        answer: 'Liquid',
+        question: 'The condition in an if/else statement is enclosed with...',
+        answer: 'Curly Brackets',
         options: [
-            'Liquid',
-            'Solid',
-            'Gas',
-            'Frozen'
+            'Quotes',
+            'Parenthesis',
+            'Curly Brackets',
+            'Square Brackets'
         ]
     },
     {
-        question: 'What flavor is a pickle?',
-        answer: 'Sour',
+        question: 'Arrys in JavaScript can be used to store...',
+        answer: 'All of the above',
         options: [
-            'Sweet',
-            'Sour',
-            'Bitter',
-            'Spicy'
+            'Numbers and Strings',
+            'Other Arrays',
+            'Booleans',
+            'All of the above'
         ]
     },
     {
-        question: 'What is the freezing point of water?',
-        answer: '32 degrees F',
+        question: 'String values must be enclosed within ..... when being assigned to variables.',
+        answer: 'Quotes',
         options: [
-            '0 degrees F',
-            '32 degrees F',
-            '10 degrees F',
-            '-10 degrees F'
+            'Quotes',
+            'Parenthsis',
+            'Commas',
+            'Curly Brackets'
         ]
     }
 ];
@@ -61,15 +61,18 @@ function setTime() {
 };
 
 startButton.addEventListener('click', function() {
-    console.log('timer');
+    // console.log('timer');
     setTime();
     displayQuestion();
 
 });
 
 function checkAnswer(event, userAnswer) {
-    if (userAnswer == questionList[currentQuestionIndex].correctAnswer) {
-        // event.target.setAttribute('style','background-color: success');
+    // console.log(userAnswer);
+    // console.log(questionList[currentQuestionIndex].answer);
+    if (userAnswer == questionList[currentQuestionIndex].answer) {
+        event.target.setAttribute('style','background-color: success');
+        // console.log('here');
     } else {
         secondsLeft -= 10;
     }
@@ -87,18 +90,21 @@ function checkAnswer(event, userAnswer) {
 function displayQuestion() {
     var currentQuestion = questionList[currentQuestionIndex];
     var questionWords = document.createElement('h1');
+    questionWords.setAttribute('class', 'text-center m-5 p-5')
 
     questionWords.innerText = currentQuestion.question;
     document.getElementById('main').innerHTML = "";
     document.querySelector('#main').append(questionWords);
 
     var div = document.createElement('div');
-    div.setAttribute('class', 'btn btn-primary');
+    div.setAttribute('class', 'd-flex row justify-content-center');
+    div.setAttribute('style', 'width: 100%;');
     document.querySelector('#main').append(div);
 
     for(let i = 0; i < currentQuestion.options.length; i++) {
         const btn = document.createElement('button');
 
+        btn.setAttribute('class', 'btn btn-primary col-6 fw-bold m-3 justify-content-center');
         btn.innerText = currentQuestion.options[i];
         btn.onclick = function(event) {
             checkAnswer(event, currentQuestion.options[i]);
@@ -126,7 +132,7 @@ function submitScore() {
 
         //changed previousScores to preivousScore
         localStorage.setItem('scores', JSON.stringify(previousScore)); 
-        window.location.href='highscore.html';
+        window.location.href='highscores.html';
     }
 };
 
@@ -136,13 +142,15 @@ function endQuiz() {
     document.getElementById('main').innerHTML = 
     `
     <div id ='userInitials'>
-        <p id ='userInit'>
-        Please enter your initials
+        <p class="text-center p-5 fs-4" id ='userInit'>
+        All Done! Please enter your initials below
         </p>
-        <input type ='text' maxlength='3' id='initials'>
-        <button onclick='submitScore()' id='submit'>
-        Submit Score
-        </button>
+        <div class="d-flex justify-content-center m-5">
+            <input type ='text' maxlength='3' class="m-3" id='initials'>
+            <button onclick='submitScore()' class="btn btn-primary m-3" id='button'>
+            Submit Score
+            </button>
+        </div>
     </div>
     `
 };
