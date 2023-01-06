@@ -71,10 +71,15 @@ function checkAnswer(event, userAnswer) {
     // console.log(userAnswer);
     // console.log(questionList[currentQuestionIndex].answer);
     if (userAnswer == questionList[currentQuestionIndex].answer) {
-        event.target.setAttribute('style','background-color: success');
+        event.target.setAttribute('style','background-color: green; border-color: green');
         // console.log('here');
     } else {
-        secondsLeft -= 10;
+        event.target.setAttribute('style','background-color: red');
+        if (secondsLeft-10<0) {
+            secondsLeft = 0
+        } else {
+            secondsLeft -= 10;
+        }
     }
 
     currentQuestionIndex++;
@@ -83,7 +88,7 @@ function checkAnswer(event, userAnswer) {
     } else {
         setTimeout(() => {
             displayQuestion();
-        }, 1000)
+        }, 2000)
     }
 };
 
@@ -141,15 +146,18 @@ function endQuiz() {
     timer.textContent = secondsLeft;
     document.getElementById('main').innerHTML = 
     `
-    <div id ='userInitials'>
+    <div id ='userInitials' style = 'margin-top:8%'>
         <p class="text-center p-5 fs-4" id ='userInit'>
-        All Done! Please enter your initials below
+        All Done!
         </p>
-        <div class="d-flex justify-content-center m-5">
-            <input type ='text' maxlength='3' class="m-3" id='initials'>
-            <button onclick='submitScore()' class="btn btn-primary m-3" id='button'>
-            Submit Score
-            </button>
+        <div class = 'd-flex flex-wrap justify-content-center align-items-center' style = 'margin-top:6%'>
+             <div class="col-auto">
+                <label for="initials" class="col-form-label align-middle fs-4">Please enter your initials :</label>
+             </div>    
+                <input type ='text' maxlength='3' class="m-3" id='initials'>
+                <button onclick='submitScore()' class="btn btn-primary m-3" id='button'>
+                Submit Score
+                </button>
         </div>
     </div>
     `

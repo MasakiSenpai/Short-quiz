@@ -17,5 +17,5 @@ if (storage) {
 
 btnClear.addEventListener('click', () => {
     localStorage.clear();
-    document.getElementById('clean').textContent = '';
+    document.getElementById('listScore').innerHTML = '';
 })
